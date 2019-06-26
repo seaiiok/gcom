@@ -11,6 +11,6 @@ import (
 )
 
 func main() {
-	u := ii.New()
-	// ii.Xxx.Xxx
+	iu := ii.New()
+	// iu.Xxx.Xxx
 }

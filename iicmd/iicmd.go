@@ -10,10 +10,14 @@ import (
 )
 
 var (
-		osv1 = new(iios.V1)
+	osv1 = new(iios.V1)
 )
 
 type V1 struct{}
+
+func New() *V1 {
+	return &V1{}
+}
 
 //控制台执行命令
 func (g *V1) ExecCommand(name string, arg ...string) (output string) {
