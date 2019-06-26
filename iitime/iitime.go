@@ -8,6 +8,11 @@ import (
 type V1 struct {
 }
 
+//New ...return V1
+func New() *V1 {
+	return &V1{}
+}
+
 // 格式时间<2006-01-02 15:04:05>转化为时间戳
 func (t *V1) TimeString2Unix(timeString string) int64 {
 	loc, _ := time.LoadLocation("Local")
