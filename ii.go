@@ -7,9 +7,9 @@ import (
 )
 
 type ii struct {
-	IIcmd  iicmd.IIcmd
-	IIos   iios.IIos
-	IItime iitime.IItime
+	CmdV1  iicmd.V1
+	OsV1   iios.V1
+	TimeV1 iitime.V1
 }
 
 //New ...

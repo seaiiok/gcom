@@ -1,11 +1,10 @@
 package main
 
 import (
-	"ii"
 	"bufio"
+	"ii"
 	"os"
 	"strings"
-
 )
 
 //自己的github信息
@@ -52,10 +51,10 @@ func main() {
 //
 func (g *Git) GitLoopHelp() {
 
-	ig:= ii.New()
+	ig := ii.New()
 
 	//避免控制台显示乱码，临时采用UTF-8
-	ig.IIcmd.ExecCommand("chcp", "65001")
+	ig.CmdV1.ExecCommand("chcp", "65001")
 
 	//主机
 	host, err := os.Hostname()
@@ -66,47 +65,47 @@ func (g *Git) GitLoopHelp() {
 
 	//配置git
 	//首次使用手动 git init
-	ig.IIcmd.ExecCommand("git", "config", "--global", "user.name", g.userName)
-	ig.IIcmd.ExecCommand("git", "config", "--global", "user.email", g.userEmail)
-	ig.IIcmd.ExecCommand("git", "remote", "add", g.repAlias, g.remoteRep)
+	ig.CmdV1.ExecCommand("git", "config", "--global", "user.name", g.userName)
+	ig.CmdV1.ExecCommand("git", "config", "--global", "user.email", g.userEmail)
+	ig.CmdV1.ExecCommand("git", "remote", "add", g.repAlias, g.remoteRep)
 
 	//循环任务
 	//当前仅支持命令:
 	//push  推送任务
 	//exit  退出git帮助
-	ig.IIcmd.Println(13, "start git help...")
+	ig.CmdV1.Println(13, "start git help...")
 	for {
-		ig.IIcmd.Println(11, "cmd help input -push...")
+		ig.CmdV1.Println(11, "cmd help input -push...")
 		input := bufio.NewScanner(os.Stdin)
 		input.Scan()
 
 		if strings.ToLower(strings.TrimSpace(input.Text())) == "push" {
-			ig.IIcmd.Println(11, "push code...")
+			ig.CmdV1.Println(11, "push code...")
 
-			output := ig.IIcmd.ExecCommand("git", "add", "-A")
-			ig.IIcmd.Println(8, output)
+			output := ig.CmdV1.ExecCommand("git", "add", "-A")
+			ig.CmdV1.Println(8, output)
 
-			ig.IIcmd.Println(11, "please input comments...")
+			ig.CmdV1.Println(11, "please input comments...")
 			input := bufio.NewScanner(os.Stdin)
 			input.Scan()
 
 			if input.Text() == "" {
-				output = ig.IIcmd.ExecCommand("git", "commit", "-m", "update by "+host)
+				output = ig.CmdV1.ExecCommand("git", "commit", "-m", "update by "+host)
 			} else {
-				output = ig.IIcmd.ExecCommand("git", "commit", "-m", strings.ToLower(strings.TrimSpace(input.Text())))
+				output = ig.CmdV1.ExecCommand("git", "commit", "-m", strings.ToLower(strings.TrimSpace(input.Text())))
 			}
 
-			ig.IIcmd.Println(8, output)
+			ig.CmdV1.Println(8, output)
 
-			output = ig.IIcmd.ExecCommand("git", "push", g.repAlias, "master")
-			ig.IIcmd.Println(8, output)
+			output = ig.CmdV1.ExecCommand("git", "push", g.repAlias, "master")
+			ig.CmdV1.Println(8, output)
 
 			//更新本地代码库
-			output = ig.IIcmd.ExecCommand("gopm", "get", "-u", g.meGithub)
-			ig.IIcmd.Println(8, output)
+			output = ig.CmdV1.ExecCommand("gopm", "get", "-u", g.meGithub)
+			ig.CmdV1.Println(8, output)
 
-			output = ig.IIcmd.ExecCommand("gopm", "get", "-g", g.meGithub)
-			ig.IIcmd.Println(8, output)
+			output = ig.CmdV1.ExecCommand("gopm", "get", "-g", g.meGithub)
+			ig.CmdV1.Println(8, output)
 
 		} else if strings.ToLower(strings.TrimSpace(input.Text())) == "exit" {
 			os.Exit(0)

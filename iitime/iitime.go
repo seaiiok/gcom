@@ -1,15 +1,15 @@
 package iitime
 
 import (
-	"time"
 	"ii/iiconst"
+	"time"
 )
 
-type IItime struct {
+type V1 struct {
 }
 
 // 格式时间<2006-01-02 15:04:05>转化为时间戳
-func (t *IItime) TimeString2Unix(timeString string) int64 {
+func (t *V1) TimeString2Unix(timeString string) int64 {
 	loc, _ := time.LoadLocation("Local")
 	theTime, _ := time.ParseInLocation(iiconst.TimeLayout, timeString, loc)
 
@@ -17,6 +17,6 @@ func (t *IItime) TimeString2Unix(timeString string) int64 {
 }
 
 // 时间戳转化为格式时间<2006-01-02 15:04:05>
-func (t *IItime) Unix2TimeString(unix int64) string {
+func (t *V1) Unix2TimeString(unix int64) string {
 	return time.Unix(unix, 0).Format(iiconst.TimeLayout)
 }
