@@ -17,13 +17,15 @@ type goCommon struct {
 	GConfig  gconfig.I
 }
 
-//New ...
+// New ...
 //
-//控制台执行类 gCmd
+// GCmd 控制台执行类
 //
-//系统操作类 gOs
+// GOs 系统操作类
 //
-//时间操作类 gTime
+// GConvert 转换操作类
+//
+// GConfig 配置文件操作类
 //
 func New() *goCommon {
 	return &goCommon{}
