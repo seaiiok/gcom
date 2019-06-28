@@ -11,11 +11,11 @@ import (
 //
 //先配置好自己的git ssh 公钥
 const (
-	meGithub  = "github.com/seaiiok/ii"
+	meGithub  = "github.com/seaiiok/gcom"
 	repAlias  = "origin"
 	userName  = "seaiiok"
 	userEmail = "seaii@qq.com"
-	remoteRep = "git@github.com:seaiiok/ii.git"
+	remoteRep = "git@github.com:seaiiok/gcom.git"
 )
 
 type Git struct {
