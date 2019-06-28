@@ -7,10 +7,11 @@
 package main
 
 import (
-	"github.com/seaiiok/ii"
+	"github.com/seaiiok/gcom"
 )
 
 func main() {
-	iu := ii.New()
-	// iu.Xxx.Xxx
+	g := gcom.New()
+	// g.Xxx.Xxx
 }
+
