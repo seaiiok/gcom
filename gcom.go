@@ -2,15 +2,19 @@ package gcom
 
 import (
 	"gcom/gcmd"
+	"gcom/gconfig"
+	"gcom/gconvert"
 	"gcom/gos"
 	"gcom/gtime"
 )
 
 //go 通用帮助类
 type goCommon struct {
-	GCmd  gcmd.I
-	GOs   gos.I
-	GTime gtime.I
+	GCmd     gcmd.I
+	GOs      gos.I
+	GTime    gtime.I
+	GConvert gconvert.I
+	GConfig  gconfig.I
 }
 
 //New ...

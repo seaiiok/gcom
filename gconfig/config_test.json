@@ -1,0 +1,8 @@
+{
+    "name": "Tom",
+    "age": 18,
+    "score": {
+        "Chinese": 100,
+        "English": 1.5
+    }
+}
