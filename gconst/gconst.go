@@ -1,4 +1,4 @@
-package iiconst
+package gconst
 
 //时间格式
 const (

@@ -1,27 +1,23 @@
-package iicmd
+package gcmd
 
 import (
 	"errors"
 	"fmt"
-	"ii/iios"
+	"gcom/gos"
 	"io/ioutil"
 	"os/exec"
 	"syscall"
 )
 
 var (
-	osv1 = new(iios.V1)
+	osi = new(gos.I)
 )
 
-type V1 struct{}
-
-//New ...return V1
-func New() *V1 {
-	return &V1{}
-}
+//控制台类 版本1.0
+type I struct{}
 
 //控制台执行命令
-func (g *V1) ExecCommand(name string, arg ...string) (output string) {
+func (g *I) ExecCommand(name string, arg ...string) (output string) {
 	cmd := exec.Command(name, arg...)
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
@@ -44,8 +40,8 @@ func (g *V1) ExecCommand(name string, arg ...string) (output string) {
 }
 
 //Println 终端输出,增加颜色参数，类似fmt.Println
-func (c *V1) Println(color int, a ...interface{}) (n int, err error) {
-	if osv1.IsWindows() {
+func (g *I) Println(color int, a ...interface{}) (n int, err error) {
+	if osi.IsWindows() {
 		kernel32 := syscall.NewLazyDLL("kernel32.dll")
 		proc := kernel32.NewProc("SetConsoleTextAttribute")
 		handle, _, _ := proc.Call(uintptr(syscall.Stdout), uintptr(color))
@@ -63,8 +59,8 @@ func (c *V1) Println(color int, a ...interface{}) (n int, err error) {
 }
 
 //Printf 终端格式输出,增加颜色参数，类似fmt.Printf
-func (c *V1) Printf(color int, format string, a ...interface{}) (n int, err error) {
-	if osv1.IsWindows() {
+func (g *I) Printf(color int, format string, a ...interface{}) (n int, err error) {
+	if osi.IsWindows() {
 		kernel32 := syscall.NewLazyDLL("kernel32.dll")
 		proc := kernel32.NewProc("SetConsoleTextAttribute")
 		handle, _, _ := proc.Call(uintptr(syscall.Stdout), uintptr(color))
