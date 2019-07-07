@@ -13,5 +13,6 @@ import (
 func main() {
 	g := gcom.New()
 	// g.Xxx.Xxx
+	//...
 }
 

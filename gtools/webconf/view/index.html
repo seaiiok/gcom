@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>配置文件</title>
+</head>
+
+<body>
+
+    <script>
+        function CanCommit() {
+            var pw = document.getElementById("cancommitpw").value
+            if (pw == "我要修改配置") {
+                document.getElementById("myForm").submit()
+            } else {
+                alert('请输入"我要修改配置"')
+            }
+        }
+    </script>
+
+    <fieldset>
+        <legend>
+            <font size="4" style="font-family:Arial">*** 配置项 ***</font>
+        </legend>
+
+        <!-- 表单 -->
+        <form action="set" method="post" id="myForm">
+
+            {{ range $key,$value:=. }}
+            {{ if ne $key "Tip" }}
+            <div>
+                <div>{{$key}}</div>
+                <textarea name="{{$key}}" id="configtext" type="text"
+                    style="color: white; background-color: slategray;width:50%;overflow-x:visible;overflow-y:visible;"
+                    rows="1">{{$value}}</textarea>
+            </div>
+            {{ end }}
+            {{ end }}
+
+            <!-- 提交验证 -->
+
+            <hr>
+
+            {{ range $key,$value:=. }}
+            {{ if eq $key "Tip" }}
+            <input name="{{$key}}" style="color:steelblue;width:240px;" id="cancommitpw" value="{{$value}}">
+            <input type="button" onclick="CanCommit()" value="保存配置">
+            {{ end }}
+            {{ end }}
+
+        </form>
+
+
+    </fieldset>
+</body>
+
+</html>
