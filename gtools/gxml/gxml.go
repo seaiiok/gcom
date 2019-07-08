@@ -23,7 +23,7 @@ type attr struct {
 	Value string
 }
 
-func XmlAsRow(xmlFile string) ([]XmlElement, error) {
+func Xml2Rows(xmlFile string) ([]XmlElement, error) {
 
 	xmls := make([]XmlElement, 0)
 	xmle := XmlElement{}
