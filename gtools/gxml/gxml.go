@@ -3,6 +3,7 @@ package gxml
 import (
 	"encoding/xml"
 	"fmt"
+	"gcom"
 	"io"
 	"os"
 	"strings"
@@ -22,6 +23,10 @@ type attr struct {
 	Local string
 	Value string
 }
+
+var (
+	g = gcom.New()
+)
 
 func Xml2Rows(xmlFile string) ([]XmlElement, error) {
 
@@ -75,5 +80,5 @@ func Xml2Rows(xmlFile string) ([]XmlElement, error) {
 }
 
 func stringTrimSpaceAndPrefixBom(v string) string {
-	return strings.TrimSpace(strings.TrimPrefix(v, string([]byte{239, 187, 191})))
+	return strings.TrimSpace(g.GConvert.StringPrefixBom(v))
 }
