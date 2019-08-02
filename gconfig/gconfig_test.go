@@ -1,6 +1,8 @@
 package gconfig
 
-import "testing"
+import (
+	"testing"
+)
 
 type conf struct {
 	Name  string
@@ -14,19 +16,20 @@ type score struct {
 }
 
 func TestConfig(t *testing.T) {
-	g := &I{}
+
 	testfile := "./config_test.json"
 
-	confmap, err := g.Config2Map(testfile)
+	confmap, err := Config2ListMap(testfile)
 	if err != nil {
 		t.Log(err)
 	}
+
 	t.Log(confmap)
 
-	c := &conf{}
-	err = g.Config2Struct(testfile, &c)
-	if err != nil {
-		t.Log(err)
-	}
-	t.Log(c)
+	// c := &conf{}
+	// err = Config2Struct(testfile, &c)
+	// if err != nil {
+	// 	t.Log(err)
+	// }
+	// t.Log(c)
 }

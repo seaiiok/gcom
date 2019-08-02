@@ -2,9 +2,14 @@ package gcmd
 
 import "testing"
 
-func TestPrintColor(t *testing.T) {
-	ii := I{}
+func TestExecCommand(t *testing.T) {
+	ExecCommand("chcp", "65001")
+	output := ExecCommand("cmd", "/C","VER")
+	t.Log(output)
+}
+
+func TestPrint(t *testing.T) {
 	for i := 0; i < 15; i++ {
-		ii.Println(i, "嗨喽,Seaii！", "Color:", i)
+		Println(i, "终端颜色-",i)
 	}
 }

@@ -28,7 +28,7 @@ func (t *tpl) configServerStart() error {
 	mux.HandleFunc("/set", t.webSetConfig)
 
 	svr := &http.Server{
-		Addr:    "localhost:496",
+		Addr:    "localhost:497",
 		Handler: mux,
 	}
 	go func() {
