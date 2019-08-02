@@ -18,6 +18,18 @@ const (
 	Err  = 12
 )
 
+//常用颜色枚举
+const (
+	FontGrey = iota + 8
+	FontBlue1
+	FontGreen
+	FontBlue2
+	FontRed
+	FontPurple
+	FontYellow
+	FontWhite
+)
+
 //控制台执行命令
 func ExecCommand(name string, arg ...string) (output string) {
 

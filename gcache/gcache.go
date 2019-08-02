@@ -6,9 +6,7 @@ import (
 	"os"
 )
 
-type I struct{}
-
-func (g *I) primeCacheFromFile(file string) (*map[string]interface{}, error) {
+func primeCacheFromFile(file string) (*map[string]interface{}, error) {
 	// 判断文件是否存在
 	if _, err := os.Stat(file); os.IsNotExist(err) {
 		return nil, err

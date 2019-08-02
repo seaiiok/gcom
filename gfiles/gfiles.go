@@ -93,7 +93,6 @@ func Zip(srcFile string, destZip string) error {
 			return err
 		}
 
-
 		if !info.IsDir() {
 			file, err := os.Open(path)
 			if err != nil {
