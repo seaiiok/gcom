@@ -2,14 +2,15 @@ package gconfig
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"os"
+	"strconv"
 )
 
-// Config2Map json配置文件转成Map
-func Config2Map(file string) (config map[string]interface{}, err error) {
-	config = make(map[string]interface{}, 0)
+const prekey = "MES-Collector-20181001 09:00:00"
+
+// parseConfig ...
+func parseConfig(file string) ([]byte, error) {
 
 	// 判断文件是否存在
 	if _, err := os.Stat(file); os.IsNotExist(err) {
@@ -18,99 +19,49 @@ func Config2Map(file string) (config map[string]interface{}, err error) {
 
 	// 读取文件内容
 	r, err := ioutil.ReadFile(file)
+
 	if err != nil {
+
 		return nil, err
 	}
-
-	// Unmarshal
-	if err := json.Unmarshal(r, &config); err != nil {
-		return nil, err
-	}
-
-	return
+	return r, nil
 }
 
-// Config2MapStr json配置文件转成Map String
-func Config2MapStr(file string) (config map[string]string, err error) {
-	config = make(map[string]string, 0)
-
-	// 判断文件是否存在
-	if _, err := os.Stat(file); os.IsNotExist(err) {
-		return nil, err
-	}
-
-	// 读取文件内容
-	r, err := ioutil.ReadFile(file)
-	if err != nil {
-		return nil, err
-	}
-
-	// Unmarshal
-	if err := json.Unmarshal(r, &config); err != nil {
-		return nil, err
-	}
-
-	return
-}
-
-// Config2Struct json配置文件转成结构体
-func Config2Struct(file string, st interface{}) (err error) {
-	// 判断文件是否存在
-	if _, err := os.Stat(file); os.IsNotExist(err) {
-		return err
-	}
-
-	// 读取文件内容
-	r, err := ioutil.ReadFile(file)
+func UpdateConfig(file string) error {
+	b, err := parseConfig(file)
 	if err != nil {
 		return err
 	}
 
-	// Unmarshal
-	if err := json.Unmarshal(r, &st); err != nil {
-		return err
-	}
-
-	return
-}
-
-// Config2ListMap json配置文件转成Map
-func Config2ListMap(file string) (map[string]interface{}, error) {
 	config := make(map[string]interface{}, 0)
-
-	// 判断文件是否存在
-	if _, err := os.Stat(file); os.IsNotExist(err) {
-		return nil, err
+	if err := json.Unmarshal(b, &config); err != nil {
+		return err
 	}
-
-	// 读取文件内容
-	r, err := ioutil.ReadFile(file)
-	if err != nil {
-		return nil, err
-	}
-
-	// Unmarshal
-	if err := json.Unmarshal(r, &config); err != nil {
-		return nil, err
-	}
-
-	m := make(map[string]interface{})
 
 	for k, v := range config {
-		// tv := reflect.TypeOf(v)
-		// vv := reflect.ValueOf(v)
+		value := ""
 		switch v.(type) {
-		case map[string]interface{}:
-		
 		case string:
-			m[k] = v.(string)
-		case int:
-			m[k] = v.(int)
+			value = v.(string)
+		case bool:
+			value = strconv.FormatBool(v.(bool))
 		case float64:
-			m[k] = fmt.Sprintf("%s", v)
-			fmt.Println("age")
+			value = strconv.FormatFloat(v.(float64), 'f', -1, 64)
+		default:
+			value = ""
+		}
+
+		if err := os.Setenv(prekey+k, value); err != nil {
+			return err
 		}
 	}
+	return nil
+}
 
-	return m, nil
+func Set(k, v string) {
+	os.Setenv(prekey+k, v)
+}
+
+func Get(k string) string {
+	return os.Getenv(prekey + k)
 }

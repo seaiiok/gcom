@@ -1,8 +1,5 @@
 {
     "name": "少年郎",
     "age": 18,
-    "score": {
-        "Chinese": 100,
-        "English": 2
-    }
+    "gender":true
 }
