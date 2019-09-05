@@ -2,6 +2,7 @@ package gconfig
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"strconv"
@@ -39,6 +40,7 @@ func UpdateConfig(file string) error {
 	}
 
 	for k, v := range config {
+		fmt.Println(k, "=", v)
 		value := ""
 		switch v.(type) {
 		case string:
@@ -47,6 +49,8 @@ func UpdateConfig(file string) error {
 			value = strconv.FormatBool(v.(bool))
 		case float64:
 			value = strconv.FormatFloat(v.(float64), 'f', -1, 64)
+		case float32:
+			value = strconv.FormatFloat(float64(v.(float32)), 'f', -1, 32)
 		default:
 			value = ""
 		}
